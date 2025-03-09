@@ -6,6 +6,12 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var roleRoutes = require('./src/routes/roleRoutes');
+var doctorRoutes = require('./src/routes/doctorRoutes.js');
+var serviceRoutes = require('./src/routes/serviceRoutes.js')
+var userRoutes = require('./src/routes/userRoutes.js');
+
+// Added API routes
 
 var app = express();
 
@@ -21,6 +27,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/api', roleRoutes); // Mount the role API routes under /api
+app.use('/api', doctorRoutes);
+app.use('/api', serviceRoutes);
+app.use('/api', userRoutes);
+
+
+app.get('/', (req, res) => {
+  res.send('Welcome to the Role API');
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
